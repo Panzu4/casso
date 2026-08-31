@@ -1,0 +1,451 @@
+LISTE
+Specifica Sintattica
+Tipi: lista, posizione, boolean, tipoelem
+Operatori:
+crealista() -> lista
+listavuota(lista) -> boolean
+leggilista(posizione, lista) -> tipoelem
+scrivilista(tipoelem, posizione, lista) -> lista
+primolista(lista) -> posizione
+finelista(posizione, lista) -> boolean
+succlista(posizione, lista) -> posizione
+predlista(posizione, lista) -> posizione
+inslista(tipoelem, posizione, lista) -> lista
+canclista(posizione, lista) -> lista
+Specifica Semantica
+Tipi:
+lista: insieme delle sequenze l = <a1, a2, ..., an>, con n >= 0, di elementi di tipo tipoelem dove l'elemento i-esimo ha valore a(i) e posizione pos(i).
+boolean: insieme dei valori di verità (vero, falso).
+
+
+Operatori:
+crealista() = l'
+POST: l' = <> (sequenza vuota)
+listavuota(l) = b
+POST: b = vero se l = <>; b = falso altrimenti
+leggilista(p, l) = a
+PRE: p = pos(i) con 1 <= i <= n
+POST: a = a(i)
+scrivilista(a, p, l) = l'
+PRE: p = pos(i) con 1 <= i <= n
+POST: l' = <a1, a2, ..., a(i-1), a, a(i+1), ..., an>
+
+
+primolista(l) = p
+POST: p = pos(1)
+finelista(p, l) = b
+PRE: p = pos(i) con 1 <= i <= n+1
+POST: b = vero se p = pos(n+1); b = falso altrimenti
+succlista(p, l) = q
+PRE: p = pos(i) con 1 <= i <= n
+POST: q = pos(i+1)
+predlista(p, l) = q
+PRE: p = pos(i) con 2 <= i <= n+1
+POST: q = pos(i-1)
+inslista(a, p, l) = l'
+PRE: p = pos(i) con 1 <= i <= n+1
+POST: l' = <a1, a2, ..., a(i-1), a, ai, ..., an> se 1 <= i <= n; l' = <a1, a2, ..., an, a> se i = n+1
+canclista(p, l) = l'
+PRE: p = pos(i) con 1 <= i <= n
+POST: l' = <a1, a2, ..., a(i-1), a(i+1), ..., an>
+PILE
+Specifica Sintattica
+Tipi: pila, boolean, tipoelem
+
+
+Operatori:
+creapila() -> pila
+pilavuota(pila) -> boolean
+leggipila(pila) -> tipoelem
+fuoripila(pila) -> pila
+inpila(tipoelem, pila) -> pila
+
+
+Specifica Semantica
+Tipi:
+
+
+pila: insieme delle sequenze P = <a1, a2, ..., an>, con n >= 0, di elementi di tipo tipoelem gestita con politica LIFO.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+creapila() = p
+POST: p = <> (sequenza vuota)
+pilavuota(p) = b
+POST: b = vero se p = <>; b = falso altrimenti
+leggipila(p) = a
+PRE: p = <a1, a2, ..., an> con n >= 1
+POST: a = a1
+fuoripila(p) = p'
+PRE: p = <a1, a2, ..., an> con n >= 1
+POST: p' = <a2, a3, ..., an> se n > 1; p' = <> se n = 1
+inpila(a, p) = p'
+PRE: p = <a1, a2, ..., an> con n >= 0
+POST: p' = <a, a1, a2, ..., an>
+CODE
+Specifica Sintattica
+Tipi: coda, boolean, tipoelem
+
+
+Operatori:
+creacoda() -> coda
+codavuota(coda) -> boolean
+leggicoda(coda) -> tipoelem
+fuoricoda(coda) -> coda
+incoda(tipoelem, coda) -> coda
+Specifica Semantica
+Tipi:
+coda: insieme delle sequenze q = <a1, a2, ..., an>, con n >= 0, di elementi di tipo tipoelem gestita con politica FIFO.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+creacoda() = q'
+POST: q' = <> (sequenza vuota)
+codavuota(q) = b
+POST: b = vero se q = <>; b = falso altrimenti
+leggicoda(q) = a
+PRE: q = <a1, a2, ..., an> con n >= 1
+POST: a = a1
+fuoricoda(q) = q'
+PRE: q = <a1, a2, ..., an> con n >= 1
+POST: q' = <a2, a3, ..., an> se n > 1; q' = <> se n = 1
+
+
+incoda(a, q) = q'
+PRE: q = <a1, a2, ..., an> con n >= 0
+POST: q' = <a1, a2, ..., an, a>
+
+
+INSIEMI
+Specifica Sintattica
+Tipi: insieme, boolean, tipoelem
+Operatori:
+creainsieme() -> insieme
+insiemevuoto(insieme) -> boolean
+appartiene(tipoelem, insieme) -> boolean
+inserisci(tipoelem, insieme) -> insieme
+cancella(tipoelem, insieme) -> insieme
+unione(insieme, insieme) -> insieme
+intersezione(insieme, insieme) -> insieme
+differenza(insieme, insieme) -> insieme
+
+
+Specifica Semantica
+Tipi:
+insieme: famiglia di insiemi costituita da elementi di tipo tipoelem.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+creainsieme() = A
+POST: A = insieme vuoto
+insiemevuoto(A) = b
+POST: b = vero se A è l'insieme vuoto; b = falso altrimenti
+appartiene(x, A) = b
+POST: b = vero se x appartiene ad A; b = falso altrimenti
+inserisci(x, A) = A'
+PRE: x non appartiene ad A (oppure: se x appartiene ad A allora A' = A)
+POST: A' = A unito {x}
+
+
+cancella(x, A) = A'
+PRE: x appartiene ad A (oppure: se x non appartiene ad A allora A' = A)
+POST: A' = A \ {x}
+
+
+unione(A, B) = C
+POST: C = A unito B
+
+
+intersezione(A, B) = C
+POST: C = A intersecato B
+
+
+differenza(A, B) = C
+POST: C = A \ B
+
+
+DIZIONARI
+Specifica Sintattica
+Tipi: dizionario, boolean, chiave, valore
+
+
+Operatori:
+
+
+
+
+creadizionario() -> dizionario
+dizionariovuoto(dizionario) -> boolean
+appartiene(chiave, dizionario) -> boolean
+inserisci(<chiave, valore>, dizionario) -> dizionario
+cancella(chiave, dizionario) -> dizionario
+recupera(chiave, dizionario) -> valore
+
+
+Specifica Semantica
+Tipi:
+dizionario: famiglia di dizionari costituita da coppie del tipo <chiave, valore>.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+
+
+creadizionario() = D
+POST: D = insieme vuoto
+dizionariovuoto(D) = b
+POST: b = vero se D è l'insieme vuoto; b = falso altrimenti
+appartiene(k, D) = b
+POST: b = vero se esiste una coppia <k', v> in D tale che k' = k; b = falso altriienti
+inserisci(<k, v>, D) = D'
+POST: D' = D unito {<k, v>} se non esiste una coppia <k', v'> in D con k' = k; altrimenti D' = (D \ {<k', v'>}) unito {<k, v>}
+cancella(k, D) = D'
+PRE: esiste una coppia <k', v'> in D tale che k' = k
+POST: D' = D \ {<k', v'>}
+recupera(k, D) = v
+PRE: esiste una coppia <k', v'> in D tale che k' = k
+POST: v = v'
+
+
+ALBERI N-ARI
+Specifica Sintattica
+Tipi: albero, boolean, nodo, tipoelem
+
+
+Operatori:
+CREAALBERO() -> albero
+ALBEROVUOTO(albero) -> boolean
+INSRADICE(nodo, albero) -> albero
+RADICE(albero) -> nodo
+PADRE(nodo, albero) -> nodo
+FOGLIA(nodo, albero) -> boolean
+PRIMOFIGLIO(nodo, albero) -> nodo
+
+
+ULTIMOFRATELLO(nodo, albero) -> boolean
+SUCCFRATELLO(nodo, albero) -> nodo
+INSPRIMOSOTTOALBERO(nodo, albero, albero) -> albero
+INSSOTTOALBERO(nodo, albero, albero) -> albero
+CANCSOTTOALBERO(nodo, albero) -> albero
+LEGGINODO(nodo, albero) -> tipoelem
+SCRIVINODO(tipoelem, nodo, albero) -> albero
+
+
+Specifica Semantica
+Tipi:
+
+
+albero: insieme degli alberi ordinati T = <N, A> in cui ad ogni nodo n in N è associato il suo livello(n).
+nodo: insieme qualsiasi finito.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+
+
+CREAALBERO() = T'
+POST: T' = albero vuoto
+ALBEROVUOTO(T) = b
+POST: b = vero se T è vuoto; b = falso altrimenti
+INSRADICE(u, T) = T'
+PRE: T è vuoto
+POST: T' = ({u}, insieme archi vuoto) con livello(u) = 0
+RADICE(T) = u
+PRE: T non è vuoto
+POST: u = v tale che livello(v) = 0
+PADRE(u, T) = v
+PRE: T non è vuoto, u appartiene ad N, livello(u) > 0
+POST: v = x tale che (x, u) appartiene ad A e livello(x) = livello(u) - 1
+FOGLIA(u, T) = b
+PRE: T non è vuoto, u appartiene ad N
+POST: b = vero se non esiste alcun nodo v in N tale che (u, v) appartiene ad A e livello(v) = livello(u) + 1; b = falso altrimenti
+
+
+PRIMOFIGLIO(u, T) = v
+PRE: T non è vuoto, u appartiene ad N, FOGLIA(u, T) = falso
+POST: v = x tale che (u, x) appartiene ad A, livello(x) = livello(u) + 1 e x è il primo figlio secondo la relazione d'ordine
+
+
+ULTIMOFRATELLO(u, T) = b
+PRE: T non è vuoto, u appartiene ad N
+POST: b = vero se non esistono altri fratelli di u che lo seguono nella relazione d'ordine; b = falso altrimenti
+SUCCFRATELLO(u, T) = v
+PRE: T non è vuoto, u appartiene ad N, ULTIMOFRATELLO(u, T) = falso
+POST: v è il fratello di u che lo segue nella relazione d'ordine
+INSPRIMOSOTTOALBERO(u, T, T') = T''
+PRE: T non è vuoto, T' non è vuoto, u appartiene a T
+POST: T'' è ottenuto da T aggiungendo l'albero T' la cui radice r' diventa il nuovo primo figlio di u
+INSSOTTOALBERO(u, T, T') = T''
+PRE: T non è vuoto, T' non è vuoto, u appartiene a T, RADICE(T) != u
+POST: T'' è ottenuto da T aggiungendo il sottoalbero T' di radice r' come fratello successivo di u
+
+
+CANCSOTTOALBERO(u, T) = T'
+PRE: T non è vuoto, u appartiene a T
+POST: T' è ottenuto da T rimuovendo il sottoalbero di radice u (u e tutti i suoi discendenti)
+LEGGINODO(n, T) = a
+PRE: n appartiene a T
+POST: a è il valore associato al nodo n in T
+SCRIVINODO(a, n, T) = T'
+PRE: n appartiene a T
+POST: T' è il nuovo albero corrispondente a T con il valore a assegnato al nodo n
+
+
+ALBERI BINARI
+Specifica Sintattica
+Tipi: alberobin, booleano, nodo, tipoelem
+
+
+Operatori (Costruzione Bottom-Up standard):
+CREABINALBERO() -> alberobin
+BINALBEROVUOTO(alberobin) -> booleano
+BINRADICE(alberobin) -> nodo
+BINPADRE(nodo, alberobin) -> nodo
+FIGLIOSINISTRO(nodo, alberobin) -> nodo
+FIGLIODESTRO(nodo, alberobin) -> nodo
+SINISTROVUOTO(nodo, alberobin) -> booleano
+DESTROVUOTO(nodo, alberobin) -> booleano
+COSTRBINALBERO(alberobin, alberobin) -> alberobin
+CANCSOTTOBINALBERO(nodo, alberobin) -> alberobin
+
+
+Operatori Alternativi (Costruzione Top-Down):
+INSBINRADICE(nodo, alberobin) -> alberobin
+INSFIGLIOSINISTRO(nodo, alberobin) -> alberobin
+INSFIGLIODESTRO(nodo, alberobin) -> alberobin
+
+
+Specifica Semantica
+Tipi:
+alberobin: insieme degli alberi binari T = (N, A) in cui ad ogni nodo è associato un livello.
+Operatori:
+
+
+CREABINALBERO() = T' -> POST: T' = albero vuoto
+BINALBEROVUOTO(T) = b -> POST: b = vero se T è vuoto; b = falso altrimenti
+BINRADICE(T) = u -> PRE: T non è vuoto; POST: u è il nodo con livello(u) = 0
+BINPADRE(u, T) = v -> PRE: T non è vuoto, u appartiene a T, livello(u) > 0; POST: v è il nodo tale che (v, u) appartiene ad A e livello(v) = livello(u) - 1
+SINISTROVUOTO(u, T) = b -> PRE: T non è vuoto, u appartiene a T; POST: b = vero se u non ha un figlio sinistro, b = falso altrimenti
+DESTROVUOTO(u, T) = b -> PRE: T non è vuoto, u appartiene a T; POST: b = vero se u non ha un figlio destro, b = falso altrimenti
+FIGLIOSINISTRO(u, T) = v -> PRE: T non è vuoto, u appartiene a T, SINISTROVUOTO(u, T) = falso; POST: v è il figlio sinistro di u
+FIGLIODESTRO(u, T) = v -> PRE: T non è vuoto, u appartiene a T, DESTROVUOTO(u, T) = falso; POST: v è il figlio destro di u
+COSTRBINALBERO(T, T') = T'' -> POST: T'' si ottiene introducendo una nuova radice che ha T come sottoalbero sinistro e T' come destro
+CANCSOTTOBINALBERO(u, T) = T' -> PRE: T non è vuoto, u appartiene a T; POST: T' è ottenuto rimuovendo il sottoalbero di radice u con tutti i suoi discendenti
+INSBINRADICE(u, T) = T' -> PRE: T è vuoto; POST: T' ha u come unica radice a livello 0
+INSFIGLIOSINISTRO(u, T) = T' -> PRE: T non è vuoto, u appartiene a T, SINISTROVUOTO(u, T) = vero; POST: nuovo nodo inserito come figlio sinistro di u
+INSFIGLIODESTRO(u, T) = T' -> PRE: T non è vuoto, u appartiene a T, DESTROVUOTO(u, T) = vero; POST: nuovo nodo inserito come figlio destro di u
+
+
+ALBERI BINARI DI RICERCA (ABR)
+Specifica Sintattica delle Funzioni/Metodi
+Tipi: Tree, Item
+
+
+Operatori:
+key() -> Item (oppure Tree)
+value() -> Item (oppure Tree)
+left() -> Tree
+right() -> Tree
+parent() -> Tree
+lookupNode(Item k) -> Tree
+insert(Item k, Item d) -> Tree
+
+
+delete() -> Tree
+successorNode(Tree t) -> Tree
+predecessorNode(Tree t) -> Tree
+min() -> Tree
+max() -> Tree
+
+
+CODE CON PRIORITA'
+Specifica Sintattica
+Tipi: prioricoda, tipoelem
+
+
+Operatori:
+CREAPRIORICODA() -> prioricoda
+INSERISCI(tipoelem, prioricoda) -> prioricoda
+MIN(prioricoda) -> tipoelem
+CANCELLAMIN(prioricoda) -> prioricoda
+
+
+Specifica Semantica
+Tipi:
+prioricoda: insieme di code con priorità con elementi di tipo tipoelem dotati di relazione "<=" di ordinamento totale.
+
+
+Operatori:
+CREAPRIORICODA() = A
+POST: A = insieme vuoto
+INSERISCI(x, A) = A'
+POST: A' = A unito {x} (se x appartiene ad A allora A' = A)
+MIN(A) = x
+PRE: A non è vuoto
+POST: x appartiene ad A e x <= y per ogni y appartenente ad A
+CANCELLAMIN(A) = A'
+PRE: A non è vuoto
+POST: A' = A \ {x} con x = MIN(A)
+GRAFI
+Specifica Sintattica
+Tipi: grafo, boolean, nodo, lista, tipoelem
+
+
+Operatori:
+crea() -> grafo
+vuoto(grafo) -> boolean
+insnodo(nodo, grafo) -> grafo
+insarco(nodo, nodo, grafo) -> grafo
+cancnodo(nodo, grafo) -> grafo
+cancarco(nodo, nodo, grafo) -> grafo
+adiacenti(nodo, grafo) -> lista
+esistenodo(nodo, grafo) -> boolean
+esistearco(nodo, nodo, grafo) -> boolean
+legginodo(nodo, grafo) -> tipoelem
+scrivinodo(tipoelem, nodo, grafo) -> grafo
+leggiarco(nodo, nodo, grafo) -> tipoelem (opzionale per grafi pesati/etichettati)
+scriviarco(tipoelem, nodo, nodo, grafo) -> grafo (opzionale per grafi pesati/etichettati)
+Specifica Semantica
+Tipi:
+grafo: insieme delle coppie di insiemi G = <N, A> con N sottoinsieme finito di elementi di tipo nodo e A sottoinsieme di N x N (coppie ordinate per grafi orientati).
+nodo: insieme finito qualsiasi.
+lista: lista di elementi di tipo nodo.
+boolean: insieme dei valori di verità.
+
+
+Operatori:
+
+
+crea() = G
+POST: G = <N, A> con N = insieme vuoto e A = insieme vuoto
+vuoto(G) = b
+POST: b = vero se N = insieme vuoto e A = insieme vuoto; b = falso altrimenti
+insnodo(u, G) = G'
+PRE: G = <N, A>, u non appartiene ad N
+POST: G' = <N', A> con N' = N unito {u}
+insarco(u, v, G) = G'
+PRE: G = <N, A>, u appartiene ad N, v appartiene ad N, <u, v> non appartiene ad A
+POST: G' = <N, A'> con A' = A unito {<u, v>}
+esistenodo(u, G) = b
+PRE: G = <N, A>
+POST: b = vero se u appartiene ad N; b = falso altrimenti
+esistearco(u, v, G) = b
+PRE: G = <N, A>
+POST: b = vero se <u, v> appartiene ad A; b = falso altrimenti
+cancnodo(u, G) = G'
+PRE: G = <N, A>, u appartiene ad N e non esiste v in N tale che <u, v> appartiene ad A oppure <v, u> appartiene ad A
+POST: G' = <N', A> con N' = N \ {u}
+
+
+cancarco(u, v, G) = G'
+PRE: G = <N, A>, u appartiene ad N, v appartiene ad N, <u, v> appartiene ad A
+POST: G' = <N, A'> con A' = A \ {<u, v>}
+
+
+adiacenti(u, G) = L
+PRE: G = <N, A>, u appartiene ad N
+POST: L è una lista che contiene una e una sola volta tutti gli elementi v in N tali che <u, v> appartiene ad A
+
