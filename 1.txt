@@ -12,3 +12,30 @@ POST: i = sommatoria dei valori dei figli esistenti di u (valore(sinistra(u)) se
 raggiungibile_in_3_passi(GrafoOrientato,Nodo,Nodo)->Boolean raggiungibile_in_3_passi(G,u,v)->b PRE: G = <N,A>, u € N, v € N POST: b = true se esiste un cammino da u a v di lunghezza <= 3; b = false altrimenti
 
 somma_adiacenti(GrafoOrientato,Nodo)->Intero somma_adiacenti(G,u)->i PRE: G = <N,A>, u € N, esiste almeno un nodo w € N tale che <u,w> € A POST: i = sommatoria per ogni w € N tale che <u,w> € A di leggiarco(u,w,G)
+
+
+
+// Inizializza i libretti, inizialmente con nessuno studente (1p)
+creaLibretti() → libretti
+PRE: true
+POST: L = ()
+
+// Aggiunge uno studente (1p)
+aggiungiStudente (libretti, studente) → libretti
+PRE: s non appartiene a L
+POST: s appartiene a L AND L(s) = <>
+
+// Memorizza il superamento di un nuovo esame con un determinato voto (terzo argomento). (2p)
+memorizzaEsitoEsame (libretti, studente, intero) → libretti
+PRE: s appartiene a L AND 17<i<31
+POST: L(s) = L(s) + <i>
+
+// Ottiene la media dei voti di un dato studente (2p)
+media (libretti, studente) → reale
+PRE: s deve avere almeno un voto v nel libretto
+POST: reale = somma dei voti / numero dei voti
+
+// Ottiene la graduatoria degli studenti ordinata in senso decrescente per media di voti (l’ordine tra i parimerito non è importante) (3p)
+graduatoria (libretti) → ? (determinare il tipo dell’output)
+PRE: true
+POST: G = <s1,s2,…,s_i> in ordine decrescente in base alla media dei voti con tutti gli s_i che appartengono al libretto L
