@@ -1,0 +1,14 @@
+ragg2passi(AlberoBinario,Nodo,Nodo)->Boolean
+ragg2passi(T,u,v)->b
+PRE: T = AlberoBinario, u € N, v € N
+POST: b = true se v € {sinistra(sinistra(u)), destra(sinistra(u)), sinistra(destra(u)), destra(destra(u))}; b = false altrimenti
+
+sommaFigli(AlberoBinario,Nodo)->Intero
+sommaFigli(T,u)->i
+PRE: T = AlberoBinario, u € N, sinistra(u) != nil OR destra(u) != nil
+POST: i = sommatoria dei valori dei figli esistenti di u (valore(sinistra(u)) se sinistra(u) != nil, più valore(destra(u)) se destra(u) != nil)
+
+
+raggiungibile_in_3_passi(GrafoOrientato,Nodo,Nodo)->Boolean raggiungibile_in_3_passi(G,u,v)->b PRE: G = <N,A>, u € N, v € N POST: b = true se esiste un cammino da u a v di lunghezza <= 3; b = false altrimenti
+
+somma_adiacenti(GrafoOrientato,Nodo)->Intero somma_adiacenti(G,u)->i PRE: G = <N,A>, u € N, esiste almeno un nodo w € N tale che <u,w> € A POST: i = sommatoria per ogni w € N tale che <u,w> € A di leggiarco(u,w,G)
